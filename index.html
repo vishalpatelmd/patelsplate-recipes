@@ -25,14 +25,40 @@
         <!-- Recipes Section -->
         <div class="mt-8">
             <h2 class="text-3xl font-bold text-gray-900 border-b-2 border-indigo-200 pb-2 inline-block">Our Recipes</h2>
-            <div class="mt-6 space-y-4">
-                <!-- Link to the first recipe page -->
-                <a href="gujaratidaal.html" class="block bg-indigo-500 text-white font-bold py-3 px-6 rounded-lg text-xl hover:bg-indigo-600 transition-colors">
-                    Gujarati Style Daal &rarr;
-                </a>
-                <!-- You will add more recipe links here as you create them -->
+            <div id="recipe-list" class="mt-6 space-y-4">
+                <!-- Recipe links will be dynamically added here by JavaScript -->
             </div>
         </div>
     </div>
+
+    <script>
+        /**
+         * Fetches a list of recipes from a JSON file and dynamically
+         * creates links for them on the homepage.
+         * This function removes the need to manually edit the HTML
+         * every time a new recipe is added.
+         */
+        document.addEventListener('DOMContentLoaded', async () => {
+            const recipeListElement = document.getElementById('recipe-list');
+
+            try {
+                // Fetch the JSON data from the recipes.json file
+                const response = await fetch('recipes.json');
+                const recipes = await response.json();
+
+                // Loop through each recipe in the data and create a link
+                recipes.forEach(recipe => {
+                    const link = document.createElement('a');
+                    link.href = recipe.filename;
+                    link.textContent = recipe.title;
+                    link.className = 'block bg-indigo-500 text-white font-bold py-3 px-6 rounded-lg text-xl hover:bg-indigo-600 transition-colors';
+                    recipeListElement.appendChild(link);
+                });
+            } catch (error) {
+                console.error('Error fetching recipes:', error);
+                recipeListElement.innerHTML = '<p class="text-red-500">Could not load recipes. Please try again later.</p>';
+            }
+        });
+    </script>
 </body>
 </html>
