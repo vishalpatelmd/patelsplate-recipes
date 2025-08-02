@@ -4,142 +4,196 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gujarati Style Daal | Patel's Plate</title>
-    <!-- Use Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f7fafc;
+            background-color: #FFFAF0;
         }
-        /* Custom styles for accordion functionality */
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-in-out;
+        .font-display {
+            font-family: 'Playfair Display', serif;
         }
-        .accordion-content.open {
-            max-height: 500px; /* Adjust this value as needed to fit all content */
+        .tab.active {
+            border-color: #C2410C;
+            color: #C2410C;
+            background-color: #FFF7ED;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .checklist-item input:checked + label {
+            text-decoration: line-through;
+            color: #78716C;
         }
     </style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
-    <div class="max-w-6xl w-full bg-white rounded-xl shadow-2xl overflow-hidden">
-        <!-- Recipe Hero Section with Image -->
-        <div class="relative">
-            <img class="w-full h-96 object-cover" src="https://placehold.co/1200x600/F1A528/333?text=Gujarati+Daal" alt="A beautiful bowl of traditional Gujarati daal with rice">
-            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-end p-8">
-                <div class="text-white">
-                    <h1 class="text-6xl font-extrabold leading-tight">Gujarati Style Daal</h1>
-                    <p class="mt-2 text-lg font-light">A sweet and tangy lentil soup, a staple in our family.</p>
-                </div>
-            </div>
-        </div>
+<body class="text-stone-800">
+    <div class="container mx-auto max-w-4xl p-4 sm:p-6 lg:p-8">
+        <a href="index.html" class="inline-flex items-center text-indigo-600 font-bold hover:text-indigo-800 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+            Back to all recipes
+        </a>
+        <header class="text-center mb-8">
+            <h1 class="font-display text-4xl sm:text-5xl font-bold text-stone-900">Gujarati Style Daal</h1>
+            <p class="mt-2 text-lg text-stone-600">A sweet and tangy lentil soup, a staple in every Gujarati household.</p>
+        </header>
 
-        <!-- Recipe Content Section -->
-        <div class="p-8 space-y-8">
-            <!-- Back Button -->
-            <a href="index.html" class="inline-flex items-center text-indigo-600 font-bold hover:text-indigo-800 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
-                </svg>
-                Back to all recipes
-            </a>
-
-            <!-- Ingredients Section -->
-            <div>
-                <h2 class="text-3xl font-bold text-gray-900 border-b-2 border-indigo-200 pb-2">Ingredients</h2>
-                <ul class="list-disc list-inside mt-4 text-gray-700 text-base space-y-1">
-                    <h3 class="font-bold mt-2">For the Daal:</h3>
-                    <li>1 cup Toor Daal (split pigeon peas)</li>
-                    <li>2-3 green chiles, slit</li>
-                    <li>1 small piece of ginger</li>
-                    <li>1/4 cup peanuts</li>
-                    <li>1 small tomato, chopped</li>
-                    <li>1/2 teaspoon turmeric powder</li>
-                    <li>1 teaspoon jaggery or sugar</li>
-                    <li>1 tablespoon lemon juice</li>
-                    <li>Salt, to taste</li>
-                </ul>
-                <ul class="list-disc list-inside mt-4 text-gray-700 text-base space-y-1">
-                    <h3 class="font-bold mt-4">For the Tempering (Vaghār):</h3>
-                    <li>2 tablespoons ghee or oil</li>
-                    <li>1/2 teaspoon mustard seeds</li>
-                    <li>1/2 teaspoon cumin seeds</li>
-                    <li>2-3 cloves</li>
-                    <li>1 small cinnamon stick</li>
-                    <li>2-3 dry red chiles</li>
-                    <li>A pinch of asafoetida (hing)</li>
-                    <li>A few curry leaves</li>
-                    <li>1/4 teaspoon fenugreek seeds (methi dana)</li>
-                </ul>
+        <main>
+            <div class="border-b border-stone-200 mb-6">
+                <nav class="-mb-px flex space-x-2 sm:space-x-4 justify-center" aria-label="Tabs">
+                    <button class="tab active whitespace-nowrap py-3 px-4 border-b-2 font-medium text-lg rounded-t-lg transition-colors duration-200" data-tab="prep">
+                        <span class="hidden sm:inline">Stage 1:</span> Prep
+                    </button>
+                    <button class="tab whitespace-nowrap py-3 px-4 border-b-2 border-transparent font-medium text-lg text-stone-500 hover:text-stone-700 hover:border-stone-300 rounded-t-lg transition-colors duration-200" data-tab="cook">
+                        <span class="hidden sm:inline">Stage 2:</span> Cook
+                    </button>
+                    <button class="tab whitespace-nowrap py-3 px-4 border-b-2 border-transparent font-medium text-lg text-stone-500 hover:text-stone-700 hover:border-stone-300 rounded-t-lg transition-colors duration-200" data-tab="finish">
+                        <span class="hidden sm:inline">Stage 3:</span> Finish
+                    </button>
+                </nav>
             </div>
 
-            <!-- Instructions Sections (Accordion) -->
-            <div class="space-y-4">
-                <!-- Prep Section -->
-                <div class="rounded-lg bg-gray-50 overflow-hidden">
-                    <button class="accordion-header w-full flex justify-between items-center p-4 font-bold text-lg text-gray-900 border-b border-gray-200 focus:outline-none">
-                        <span>1. Prep</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                        </svg>
-                    </button>
-                    <div class="accordion-content p-4 text-gray-700 space-y-2">
-                        <ol class="list-decimal list-inside">
-                            <li>Wash the toor daal thoroughly and soak it for at least 30 minutes.</li>
-                            <li>In a pressure cooker, add the soaked daal, 4 cups of water, turmeric powder, green chiles, ginger, peanuts, and chopped tomato.</li>
-                            <li>Pressure cook for 4-5 whistles on medium heat. Let the pressure release naturally.</li>
-                        </ol>
-                    </div>
-                </div>
-                <!-- Cook Section -->
-                <div class="rounded-lg bg-gray-50 overflow-hidden">
-                    <button class="accordion-header w-full flex justify-between items-center p-4 font-bold text-lg text-gray-900 border-b border-gray-200 focus:outline-none">
-                        <span>2. Cook</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                        </svg>
-                    </button>
-                    <div class="accordion-content p-4 text-gray-700 space-y-2">
-                        <ol class="list-decimal list-inside">
-                            <li>Once the daal is cooked, mash it lightly with a whisk or a wooden spoon to get a smooth consistency.</li>
-                            <li>Add jaggery, lemon juice, and salt. Bring to a boil and simmer for 10 minutes, allowing the flavors to meld.</li>
-                        </ol>
-                    </div>
-                </div>
-                <!-- Finish Section -->
-                <div class="rounded-lg bg-gray-50 overflow-hidden">
-                    <button class="accordion-header w-full flex justify-between items-center p-4 font-bold text-lg text-gray-900 border-b border-gray-200 focus:outline-none">
-                        <span>3. Finish</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                        </svg>
-                    </button>
-                    <div class="accordion-content p-4 text-gray-700 space-y-2">
-                        <ol class="list-decimal list-inside">
-                            <li>**For the Vaghār (tempering):** In a small pan, heat ghee or oil. Once hot, add mustard seeds. When they splutter, add cumin seeds, cloves, cinnamon stick, dry red chiles, asafoetida, and fenugreek seeds.</li>
-                            <li>Add the curry leaves and sauté for a few seconds. Be careful as the leaves may splutter.</li>
-                            <li>Pour the hot tempering over the simmering daal. Stir gently.</li>
-                            <li>Serve hot with rice and a side of vegetables.</li>
-                        </ol>
+            <div id="prep" class="tab-content active">
+                <div class="bg-white p-6 rounded-2xl shadow-sm">
+                    <h2 class="font-display text-3xl font-bold mb-4">Prep: Gather Ingredients and Tools</h2>
+                    <p class="mb-6 text-stone-600">A great daal begins with having everything you need ready. Use these interactive checklists to gather your ingredients and tools.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="font-bold text-xl mb-3 border-b pb-2 text-orange-800">📋 Tools & Supplies</h3>
+                            <ul id="tools-list" class="space-y-2">
+                                <!-- JS will populate this -->
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-xl mb-3 border-b pb-2 text-orange-800">🛒 Ingredients</h3>
+                            <ul id="ingredients-list" class="space-y-2">
+                                <!-- JS will populate this -->
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+            <div id="cook" class="tab-content">
+                <div class="bg-white p-6 rounded-2xl shadow-sm">
+                    <h2 class="font-display text-3xl font-bold mb-4">Cook: Pressure Cook the Daal</h2>
+                    <p class="mb-6 text-stone-600">Follow these steps carefully to ensure your daal is cooked to the perfect, creamy consistency.</p>
+                    <ol id="cook-steps" class="space-y-4 list-decimal list-inside">
+                        <!-- JS will populate this -->
+                    </ol>
+                </div>
+            </div>
+
+            <div id="finish" class="tab-content">
+                <div class="bg-white p-6 rounded-2xl shadow-sm">
+                    <h2 class="font-display text-3xl font-bold mb-4">Finish: The Vaghār (Tempering)</h2>
+                    <p class="mb-6 text-stone-600">The vaghār is the heart of a good Gujarati daal. This is where we add the final aromatic flavors.</p>
+                    <ol id="finish-steps" class="space-y-4 list-decimal list-inside">
+                        <!-- JS will populate this -->
+                    </ol>
+                </div>
+            </div>
+        </main>
     </div>
 
-    <!-- JavaScript for accordion functionality -->
     <script>
-        const accordionHeaders = document.querySelectorAll('.accordion-header');
-        accordionHeaders.forEach(header => {
-            header.addEventListener('click', () => {
-                const content = header.nextElementSibling;
-                const icon = header.querySelector('svg');
+        document.addEventListener('DOMContentLoaded', function () {
+            const recipeData = {
+                tools: [
+                    "Pressure cooker or large pot",
+                    "Small tempering pan (vaghār-iyu)",
+                    "Whisk or wooden spoon",
+                    "Measuring cups and spoons",
+                    "Chopping board and knife"
+                ],
+                ingredients: [
+                    "1 cup Toor Daal (split pigeon peas)",
+                    "2-3 green chiles, slit",
+                    "1 small piece of ginger, minced",
+                    "1/4 cup peanuts",
+                    "1 small tomato, chopped",
+                    "1/2 teaspoon turmeric powder",
+                    "1 teaspoon jaggery or sugar",
+                    "1 tablespoon lemon juice",
+                    "Salt, to taste",
+                    "2 tablespoons ghee or oil",
+                    "1/2 teaspoon mustard seeds",
+                    "1/2 teaspoon cumin seeds",
+                    "2-3 cloves",
+                    "1 small cinnamon stick",
+                    "2-3 dry red chiles",
+                    "A pinch of asafoetida (hing)",
+                    "A few curry leaves",
+                    "1/4 teaspoon fenugreek seeds (methi dana)"
+                ],
+                cookSteps: [
+                    "Wash the toor daal thoroughly and soak it for at least 30 minutes.",
+                    "In a pressure cooker, add the soaked daal, 4 cups of water, turmeric powder, green chiles, ginger, peanuts, and chopped tomato.",
+                    "Pressure cook for 4-5 whistles on medium heat. Let the pressure release naturally."
+                ],
+                finishSteps: [
+                    "Once the daal is cooked, mash it lightly with a whisk or a wooden spoon to get a smooth consistency.",
+                    "Add jaggery, lemon juice, and salt. Bring to a boil and simmer for 10 minutes, allowing the flavors to meld.",
+                    "<strong>For the Vaghār (tempering):</strong> In a small pan, heat ghee or oil. Once hot, add mustard seeds. When they splutter, add cumin seeds, cloves, cinnamon stick, dry red chiles, asafoetida, and fenugreek seeds.",
+                    "Add the curry leaves and sauté for a few seconds. Be careful as the leaves may splutter.",
+                    "Pour the hot tempering over the simmering daal. Stir gently.",
+                    "Serve hot with rice and a side of vegetables."
+                ]
+            };
 
-                // Toggle the 'open' class for the clicked accordion content
-                content.classList.toggle('open');
-                icon.classList.toggle('rotate-180');
+            const createChecklistItem = (item, index, type) => {
+                const li = document.createElement('li');
+                li.className = 'checklist-item flex items-center';
+                const id = `${type}-${index}`;
+                li.innerHTML = `
+                    <input type="checkbox" id="${id}" class="h-4 w-4 rounded border-stone-300 text-orange-600 focus:ring-orange-500">
+                    <label for="${id}" class="ml-3 text-stone-700">${item}</label>
+                `;
+                return li;
+            };
+
+            const createNumberedListItem = (step) => {
+                const li = document.createElement('li');
+                li.innerHTML = step;
+                return li;
+            };
+
+            const toolsList = document.getElementById('tools-list');
+            const ingredientsList = document.getElementById('ingredients-list');
+            const cookStepsList = document.getElementById('cook-steps');
+            const finishStepsList = document.getElementById('finish-steps');
+
+            recipeData.tools.forEach((item, index) => toolsList.appendChild(createChecklistItem(item, index, 'tool')));
+            recipeData.ingredients.forEach((item, index) => ingredientsList.appendChild(createChecklistItem(item, index, 'ingredient')));
+            recipeData.cookSteps.forEach(step => cookStepsList.appendChild(createNumberedListItem(step)));
+            recipeData.finishSteps.forEach(step => finishStepsList.appendChild(createNumberedListItem(step)));
+
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const target = tab.getAttribute('data-tab');
+
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    tabContents.forEach(content => {
+                        if (content.id === target) {
+                            content.classList.add('active');
+                        } else {
+                            content.classList.remove('active');
+                        }
+                    });
+                });
             });
         });
     </script>
