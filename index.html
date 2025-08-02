@@ -6,27 +6,57 @@
     <title>Patel's Plate</title>
     <!-- Use Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f7fafc;
+            background-color: #FFFAF0; /* FloralWhite */
+        }
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+        .bg-cycle {
+            animation: cycle 20s infinite ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
+        @keyframes cycle {
+            0%, 25% { background-image: url('https://images.unsplash.com/photo-1549488344-904037803e47?w=1200&q=80'); }
+            25.01%, 50% { background-image: url('https://images.unsplash.com/photo-1546069901-b258c7075c34?w=1200&q=80'); }
+            50.01%, 75% { background-image: url('https://images.unsplash.com/photo-1628122394073-67825d194200?w=1200&q=80'); }
+            75.01%, 100% { background-image: url('https://images.unsplash.com/photo-1618366712128-6f0a3d4f8e77?w=1200&q=80'); }
         }
     </style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
-    <div class="max-w-4xl w-full bg-white rounded-xl shadow-2xl p-8 text-center">
-        <!-- Site Title and Introduction -->
-        <h1 class="text-5xl font-extrabold text-gray-900">Welcome to Patel's Plate</h1>
-        <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-            A collection of our family's favorite recipes, from comforting classics to new culinary adventures. Enjoy!
-        </p>
+<body class="text-stone-800">
+    <div class="h-screen w-screen relative overflow-hidden">
+        <!-- Background cycling through different food images -->
+        <div class="absolute inset-0 bg-cycle z-0 opacity-20"></div>
 
-        <!-- Recipes Section -->
-        <div class="mt-8">
-            <h2 class="text-3xl font-bold text-gray-900 border-b-2 border-indigo-200 pb-2 inline-block">Our Recipes</h2>
-            <div id="recipe-list" class="mt-6 space-y-4">
-                <!-- Recipe links will be dynamically added here by JavaScript -->
+        <div class="relative z-10 flex flex-col items-center justify-center h-full p-4 text-center">
+            <div class="bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-xl max-w-2xl w-full">
+                <!-- Family Logo -->
+                <div class="flex items-center justify-center mb-4 space-x-2">
+                    <span class="font-display text-4xl font-bold text-orange-700 tracking-widest">
+                        V<span class="text-2xl text-stone-600">A</span><span class="text-3xl text-orange-600">M</span>P
+                    </span>
+                </div>
+                
+                <!-- Site Title and Introduction -->
+                <h1 class="font-display text-5xl font-bold text-stone-900 leading-tight">Welcome to Patel's Plate</h1>
+                <p class="mt-4 text-lg text-stone-600 max-w-xl mx-auto">
+                    This is a project of love where our family comes together to plan our meals, search for new recipes, and alter them to make them our own. We make several new recipes every week, and this is where we'll post a new favorite every time.
+                </p>
+
+                <!-- Recipes Section -->
+                <div class="mt-8">
+                    <h2 class="text-3xl font-bold text-stone-900 border-b-2 border-orange-200 pb-2 inline-block">Our Recipes</h2>
+                    <div id="recipe-list" class="mt-6 space-y-4">
+                        <!-- Recipe links will be dynamically added here by JavaScript -->
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -38,26 +68,29 @@
          * This function removes the need to manually edit the HTML
          * every time a new recipe is added.
          */
-        document.addEventListener('DOMContentLoaded', async () => {
+        document.addEventListener('DOMContentLoaded', () => {
             const recipeListElement = document.getElementById('recipe-list');
 
-            try {
-                // Fetch the JSON data from the recipes.json file
-                const response = await fetch('recipes.json');
-                const recipes = await response.json();
+            // Hardcode the recipe data for the preview environment
+            const recipes = [
+                {
+                    "title": "Gujarati Style Daal",
+                    "filename": "gujaratidaal.html"
+                },
+                {
+                    "title": "Smoked Turkey Reuben",
+                    "filename": "smokedturkeyreuben.html"
+                }
+            ];
 
-                // Loop through each recipe in the data and create a link
-                recipes.forEach(recipe => {
-                    const link = document.createElement('a');
-                    link.href = recipe.filename;
-                    link.textContent = recipe.title;
-                    link.className = 'block bg-indigo-500 text-white font-bold py-3 px-6 rounded-lg text-xl hover:bg-indigo-600 transition-colors';
-                    recipeListElement.appendChild(link);
-                });
-            } catch (error) {
-                console.error('Error fetching recipes:', error);
-                recipeListElement.innerHTML = '<p class="text-red-500">Could not load recipes. Please try again later.</p>';
-            }
+            // Loop through each recipe in the data and create a link
+            recipes.forEach(recipe => {
+                const link = document.createElement('a');
+                link.href = recipe.filename;
+                link.textContent = recipe.title;
+                link.className = 'block bg-orange-700 text-white font-bold py-3 px-6 rounded-lg text-xl hover:bg-orange-800 transition-colors';
+                recipeListElement.appendChild(link);
+            });
         });
     </script>
 </body>
