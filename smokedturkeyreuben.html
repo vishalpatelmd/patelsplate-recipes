@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Smoked Turkey Reuben Recipe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Kitchen (Amber, Stone, Deep Orange) -->
+    <!-- Application Structure Plan: A three-stage tabbed interface (Prep, Smoke, Assemble) was chosen to break the complex recipe into manageable, focused steps. This reduces user cognitive load compared to a single long scroll. Interactive checklists and a dynamic brine toggle enhance usability and guide the user through preparation. The structure follows a natural culinary workflow. -->
+    <!-- Visualization & Content Choices: Goal: Inform/Prepare -> Interactive Checklists (HTML/JS) for tools/ingredients to ensure user has everything. Goal: Organize/Guide -> Tabbed Navigation (HTML/JS) to separate distinct cooking phases. Goal: Monitor -> Visual cues (highlighted text, icons) for temperature and time targets to make critical data points stand out. No charts are needed as the data is a simple process flow. All visuals use HTML/CSS/Unicode. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FFFAF0; /* FloralWhite - a warm, light background */
+        }
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+        .tab.active {
+            border-color: #C2410C; /* orange-800 */
+            color: #C2410C;
+            background-color: #FFF7ED; /* orange-50 */
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .checklist-item input:checked + label {
+            text-decoration: line-through;
+            color: #78716C; /* stone-500 */
+        }
+        .brine-section {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #fef3e5; /* A slightly darker shade of orange-50 */
+            border-radius: 0.75rem;
+        }
+        #brine-toggle:checked ~ .brine-section {
+            display: block;
+        }
+    </style>
+</head>
+<body class="text-stone-800">
+
+    <div class="container mx-auto max-w-4xl p-4 sm:p-6 lg:p-8">
+        <header class="text-center mb-8">
+            <h1 class="font-display text-4xl sm:text-5xl font-bold text-stone-900">Smoked Turkey Reuben</h1>
+            <p class="mt-2 text-lg text-stone-600">An interactive guide to the perfect sandwich.</p>
+        </header>
+
+        <main>
+            <div class="border-b border-stone-200 mb-6">
+                <nav class="-mb-px flex space-x-2 sm:space-x-4 justify-center" aria-label="Tabs">
+                    <button class="tab active whitespace-nowrap py-3 px-4 border-b-2 font-medium text-lg rounded-t-lg transition-colors duration-200" data-tab="prep">
+                        <span class="hidden sm:inline">Stage 1:</span> Prep
+                    </button>
+                    <button class="tab whitespace-nowrap py-3 px-4 border-b-2 border-transparent font-medium text-lg text-stone-500 hover:text-stone-700 hover:border-stone-300 rounded-t-lg transition-colors duration-200" data-tab="smoke">
+                        <span class="hidden sm:inline">Stage 2:</span> Smoke
+                    </button>
+                    <button class="tab whitespace-nowrap py-3 px-4 border-b-2 border-transparent font-medium text-lg text-stone-500 hover:text-stone-700 hover:border-stone-300 rounded-t-lg transition-colors duration-200" data-tab="assemble">
+                        <span class="hidden sm:inline">Stage 3:</span> Assemble
+                    </button>
+                </nav>
+            </div>
+
+            <div id="prep" class="tab-content active">
+                <div class="bg-white p-6 rounded-2xl shadow-sm">
+                    <h2 class="font-display text-3xl font-bold mb-4">Prep: Gather Your Gear & Ingredients</h2>
+                    <p class="mb-6 text-stone-600">This first stage is all about preparation. A great meal starts with having everything you need ready to go. Use these interactive checklists to gather your tools and ingredients before you begin.</p>
+
+                    <div class="mb-6">
+                        <input type="checkbox" id="brine-toggle" class="peer hidden">
+                        <label for="brine-toggle" class="cursor-pointer text-lg font-bold text-orange-800 flex items-center">
+                            <span class="mr-2 text-2xl">💡</span>
+                            <span class="underline">Brining Instructions (Optional)</span>
+                        </label>
+                        <div class="brine-section">
+                            <h3 class="font-bold text-xl mb-3 border-b pb-2 text-orange-800">Brine Ingredients & Steps</h3>
+                            <ul id="brine-ingredients-list" class="space-y-2 mb-4">
+                                <!-- JS will populate this -->
+                            </ul>
+                            <ol id="brine-steps-list" class="space-y-2 list-decimal list-inside">
+                                <!-- JS will populate this -->
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="font-bold text-xl mb-3 border-b pb-2 text-orange-800">📋 Tools & Supplies</h3>
+                            <ul id="tools-list" class="space-y-2">
+                                <!-- JS will populate this -->
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-xl mb-3 border-b pb-2 text-orange-800">🛒 Ingredients</h3>
+                            <ul id="ingredients-list" class="space-y-2">
+                                <!-- JS will populate this -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="smoke" class="tab-content">
+                 <div class="bg-white p-6 rounded-2xl shadow-sm">
+                    <h2 class="font-display text-3xl font-bold mb-4">Smoke: The Flavor Engine</h2>
+                    <p class="mb-6 text-stone-600">This is where the magic happens. Follow these steps carefully to infuse the turkey with delicious smoke flavor while keeping it perfectly moist. Pay close attention to the temperature targets.</p>
+                    <ol id="smoke-steps" class="space-y-4 list-decimal list-inside">
+                        <!-- JS will populate this -->
+                    </ol>
+                </div>
+            </div>
+
+            <div id="assemble" class="tab-content">
+                <div class="bg-white p-6 rounded-2xl shadow-sm">
+                    <h2 class="font-display text-3xl font-bold mb-4">Assemble: Build the Perfect Reuben</h2>
+                    <p class="mb-6 text-stone-600">With your perfectly smoked turkey ready, it's time for the final, delicious step. This is where all the components come together to create the classic sandwich you've been working towards.</p>
+                    <ol id="assemble-steps" class="space-y-4 list-decimal list-inside">
+                        <!-- JS will populate this -->
+                    </ol>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const recipeData = {
+                brineIngredients: [
+                    "1 gallon cold water",
+                    "½ cup kosher salt",
+                    "½ cup brown sugar (optional)",
+                    "2 tbsp dry rub",
+                    "Optional: bay leaves, rosemary, garlic, or a sliced orange"
+                ],
+                brineSteps: [
+                    "In a large container, whisk together the water, salt, and brown sugar until dissolved.",
+                    "Add 2 tablespoons of the dry rub and any optional aromatics.",
+                    "Submerge the turkey breast completely and refrigerate for 8 to 12 hours."
+                ],
+                tools: [
+                    "Recteq Dual Fire Smoker",
+                    "Wireless Meat Thermometer",
+                    "Large Food-Safe Container (for brine)",
+                    "Heavy-Duty Pink Butcher Paper or Foil",
+                    "Measuring Spoons & Cups",
+                    "Small Mixing Bowl",
+                    "Sharp Carving Knife",
+                    "Cutting Board",
+                    "Paper Towels",
+                    "Skillet or Griddle",
+                    "Wide Spatula"
+                ],
+                ingredients: [
+                    "1 boneless, skinless turkey breast (3-4 lbs)",
+                    "2 tbsp olive oil",
+                    "Paprika, garlic powder, onion powder",
+                    "Black pepper, dried thyme, dried rosemary",
+                    "Marbled rye bread",
+                    "Swiss cheese slices",
+                    "Sauerkraut",
+                    "Thousand Island or Russian dressing",
+                    "Butter",
+                    "Mayonnaise, ketchup, pickle relish (for homemade dressing)",
+                    "Prepared horseradish (optional)"
+                ],
+                smokeSteps: [
+                    "<strong>Prepare the Turkey:</strong> If you chose to brine, rinse it thoroughly and pat completely dry. If not, just pat dry. A dry surface is key for a good bark.",
+                    "<strong>Apply Oil & Rub:</strong> Lightly coat the turkey with olive oil. Generously apply the dry rub, massaging it over the entire surface.",
+                    "<strong>Preheat Smoker:</strong> Set your Recteq to <span class='font-bold text-orange-800 bg-orange-50 px-2 py-1 rounded-md'>225°F</span>. Use apple, cherry, or pecan pellets for best flavor.",
+                    "<strong>Begin Smoking:</strong> Place turkey on the grate. Insert your wireless thermometer into the thickest part. Smoke until the internal temperature reaches <span class='font-bold text-orange-800 bg-orange-50 px-2 py-1 rounded-md'>145-150°F</span> (approx. 1.5-2.5 hours).",
+                    "<strong>Wrap the Turkey:</strong> Remove from smoker. Place on butcher paper or foil, pour ~¼ cup of chicken/turkey broth over it, and wrap tightly to seal.",
+                    "<strong>Finish Smoking:</strong> Return the wrapped turkey to the smoker. Continue cooking until the internal temperature reaches <span class='font-bold text-orange-800 bg-orange-50 px-2 py-1 rounded-md'>165°F</span> (approx. 1-2 more hours).",
+                    "<strong>Rest the Turkey (Crucial!):</strong> Remove from smoker and let it rest, still wrapped, for at least <strong>15-20 minutes</strong>. This allows juices to redistribute.",
+                    "<strong>Slice:</strong> Carefully unwrap and slice the turkey as thinly as possible against the grain."
+                ],
+                assembleSteps: [
+                    "<strong>Prepare Dressing:</strong> If making your own, mix mayonnaise, ketchup, sweet pickle relish, and optional horseradish in a small bowl.",
+                    "<strong>Heat Skillet:</strong> Place your skillet or griddle over medium heat.",
+                    "<strong>Butter Bread:</strong> Spread softened butter generously on one side of each slice of rye bread.",
+                    "<strong>Assemble Sandwich:</strong> On the unbuttered side of one slice, spread dressing. Layer with smoked turkey, Swiss cheese, and well-drained sauerkraut. Top with the second slice of bread, butter-side-out.",
+                    "<strong>Grill First Side:</strong> Place the sandwich in the hot skillet. Grill for 3-4 minutes until golden brown and crispy. Press gently with a spatula.",
+                    "<strong>Flip & Finish:</strong> Flip the sandwich and grill for another 3-4 minutes until the other side is golden and the cheese is gloriously melted.",
+                    "<strong>Serve:</strong> Remove from pan, slice in half (diagonally is classic), and enjoy immediately!"
+                ]
+            };
+
+            const brineIngredientsList = document.getElementById('brine-ingredients-list');
+            const brineStepsList = document.getElementById('brine-steps-list');
+            const toolsList = document.getElementById('tools-list');
+            const ingredientsList = document.getElementById('ingredients-list');
+            const smokeStepsList = document.getElementById('smoke-steps');
+            const assembleStepsList = document.getElementById('assemble-steps');
+
+            const createChecklistItem = (item, index, type) => {
+                const li = document.createElement('li');
+                li.className = 'checklist-item flex items-center';
+                const id = `${type}-${index}`;
+                li.innerHTML = `
+                    <input type="checkbox" id="${id}" class="h-4 w-4 rounded border-stone-300 text-orange-600 focus:ring-orange-500">
+                    <label for="${id}" class="ml-3 text-stone-700">${item}</label>
+                `;
+                return li;
+            };
+
+            recipeData.brineIngredients.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span class="ml-3 text-stone-700">${item}</span>
+                `;
+                brineIngredientsList.appendChild(li);
+            });
+
+            recipeData.brineSteps.forEach(step => {
+                const li = document.createElement('li');
+                li.innerHTML = step;
+                brineStepsList.appendChild(li);
+            });
+
+            recipeData.tools.forEach((item, index) => toolsList.appendChild(createChecklistItem(item, index, 'tool')));
+            recipeData.ingredients.forEach((item, index) => ingredientsList.appendChild(createChecklistItem(item, index, 'ingredient')));
+            
+            recipeData.smokeSteps.forEach(step => {
+                const li = document.createElement('li');
+                li.innerHTML = step;
+                smokeStepsList.appendChild(li);
+            });
+            
+            recipeData.assembleSteps.forEach(step => {
+                const li = document.createElement('li');
+                li.innerHTML = step;
+                assembleStepsList.appendChild(li);
+            });
+
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const target = tab.getAttribute('data-tab');
+
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    tabContents.forEach(content => {
+                        if (content.id === target) {
+                            content.classList.add('active');
+                        } else {
+                            content.classList.remove('active');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
